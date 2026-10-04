@@ -1,0 +1,47 @@
+{% extends "events/base.html" %}
+{% comment %}
+event_detail.html - one event. Rendered by views.event_detail.
+The status buttons come from event.allowed_next_statuses() in models.py,
+so only valid next statuses are shown. Each button POSTs to
+views.event_change_status.
+{% endcomment %}
+
+{% block title %}{{ event.title }} - Event Scheduler{% endblock %}
+
+{% block content %}
+<p><a href="{% url 'event_list' %}">&larr; All events</a></p>
+
+<div class="card">
+    <div class="page-header">
+        <h1>{{ event.title }}</h1>
+        <span class="status status-{{ event.status }}">{{ event.get_status_display }}</span>
+    </div>
+
+    {% if event.description %}
+        <p>{{ event.description|linebreaksbr }}</p>
+    {% endif %}
+
+    <dl>
+        <dt>Starts</dt><dd>{{ event.start_time|date:"M j, Y H:i" }}</dd>
+        <dt>Ends</dt><dd>{{ event.end_time|date:"M j, Y H:i" }}</dd>
+        <dt>Created</dt><dd>{{ event.created_at|date:"M j, Y H:i" }}</dd>
+    </dl>
+
+    <h2>Change status</h2>
+    {% with next_statuses=event.allowed_next_statuses %}
+        {% if next_statuses %}
+            <form method="post" action="{% url 'event_change_status' event.pk %}" class="status-buttons">
+                {% csrf_token %}
+                {% for value, label in next_statuses %}
+                    {# The clicked button's name/value is sent as status=<value>. #}
+                    <button type="submit" name="status" value="{{ value }}" class="button button-{{ value }}">
+                        {{ label }}
+                    </button>
+                {% endfor %}
+            </form>
+        {% else %}
+            <p class="empty">This event is {{ event.get_status_display|lower }} and can no longer change.</p>
+        {% endif %}
+    {% endwith %}
+</div>
+{% endblock %}

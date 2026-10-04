@@ -1,0 +1,37 @@
+{% extends "events/base.html" %}
+{% comment %}
+event_list.html - the home page. Rendered by views.event_list,
+which passes in "events" (all Event objects).
+{% endcomment %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Events</h1>
+    <a class="button" href="{% url 'event_create' %}">+ New event</a>
+</div>
+
+{% if events %}
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Starts</th>
+                <th>Ends</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+                <tr>
+                    <td><a href="{% url 'event_detail' event.pk %}">{{ event.title }}</a></td>
+                    <td>{{ event.start_time|date:"M j, Y H:i" }}</td>
+                    <td>{{ event.end_time|date:"M j, Y H:i" }}</td>
+                    <td><span class="status status-{{ event.status }}">{{ event.get_status_display }}</span></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="empty">No events yet. <a href="{% url 'event_create' %}">Create the first one.</a></p>
+{% endif %}
+{% endblock %}

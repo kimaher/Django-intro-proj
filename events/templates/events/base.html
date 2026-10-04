@@ -1,0 +1,34 @@
+{% comment %}
+base.html - the shared page layout. Other templates "extend" this file
+and fill in the {% block content %} section with their own HTML.
+{% endcomment %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Event Scheduler{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'events/style.css' %}">
+</head>
+<body>
+    <header>
+        <a class="brand" href="{% url 'event_list' %}">Event Scheduler</a>
+        <nav>
+            <a href="{% url 'event_list' %}">All events</a>
+            <a href="{% url 'event_create' %}">New event</a>
+            <a href="{% url 'api_event_list' %}">API</a>
+            <a href="/admin/">Admin</a>
+        </nav>
+    </header>
+
+    <main>
+        {# Flash messages set with messages.success() / messages.error() in views.py #}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,112 @@
+/* style.css - a little basic styling for the event pages. */
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #f5f6f8;
+    color: #222;
+    line-height: 1.5;
+}
+
+a { color: #2563eb; }
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #1f2937;
+}
+header a { color: #e5e7eb; text-decoration: none; }
+header .brand { font-weight: bold; font-size: 1.1rem; color: #fff; }
+header nav a { margin-left: 16px; }
+
+main {
+    max-width: 860px;
+    margin: 24px auto;
+    padding: 0 16px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+th { background: #f9fafb; font-size: 0.85rem; color: #555; }
+
+/* Status badges */
+.status {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.status-draft       { background: #e5e7eb; color: #374151; }
+.status-scheduled   { background: #dbeafe; color: #1e40af; }
+.status-in_progress { background: #fef3c7; color: #92400e; }
+.status-completed   { background: #dcfce7; color: #166534; }
+.status-cancelled   { background: #fee2e2; color: #991b1b; }
+
+/* Buttons */
+.button {
+    display: inline-block;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #2563eb;
+    color: #fff;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+.button:hover { opacity: 0.9; }
+.button-cancelled { background: #dc2626; }
+.button-completed { background: #16a34a; }
+.status-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Forms */
+.field { margin-bottom: 16px; }
+.field label { display: block; font-weight: 600; margin-bottom: 4px; }
+.field input, .field textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font: inherit;
+}
+.field-error { color: #dc2626; margin: 4px 0 0; font-size: 0.9rem; }
+
+/* Flash messages */
+.message { padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; }
+.message.success { background: #dcfce7; color: #166534; }
+.message.error   { background: #fee2e2; color: #991b1b; }
+
+dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; }
+dt { font-weight: 600; color: #555; }
+dd { margin: 0; }
+
+.empty { color: #6b7280; }
